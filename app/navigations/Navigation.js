@@ -1,22 +1,29 @@
-import React from 'react'
-import {NavigationContainer} from '@react-navigation/native'
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
-import { StyleSheet, Text, View } from 'react-native'
-
-
-import RestaurantsStack from '../navigations/RestaurantsStack'
-import FavoriteStack from '../navigations/FavoriteStack'
-import RankingStack from '../navigations/RankingStack'
-import SearchStack from '../navigations/SearchStack'
-import AccountStak from '../navigations/AccountStack'
-
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { StyleSheet, Text, View } from "react-native";
+import { Icon } from "react-native-elements";
+import RestaurantsStack from "../navigations/RestaurantsStack";
+import FavoriteStack from "../navigations/FavoriteStack";
+import RankingStack from "../navigations/RankingStack";
+import SearchStack from "../navigations/SearchStack";
+import AccountStak from "../navigations/AccountStack";
 
 const Tab = createBottomTabNavigator();
 
 const Navigation = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator
+        initialRouteName="Restaurants"
+        tabBarOptions={{
+          inactiveTintColor: "#646464",
+          activeTintColor: "#00a680",
+        }}
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ color }) => screenOptions(route, color),
+        })}
+      >
         <Tab.Screen
           name="Restaurants"
           component={RestaurantsStack}
@@ -45,8 +52,33 @@ const Navigation = () => {
       </Tab.Navigator>
     </NavigationContainer>
   );
+};
+
+export default Navigation;
+
+function screenOptions(route, color) {
+  let iconName;
+
+  switch (route.name) {
+    case "Restaurants":
+      iconName = "compass-outline";
+      break;
+    case "Favorites":
+      iconName = "heart-outline";
+      break;
+    case "Top":
+      iconName = "star-outline";
+      break;
+
+    case "Search":
+      iconName = "magnify";
+      break;
+    case "Account":
+      iconName = "home-outline";
+      break;
+  }
+
+  return (
+    <Icon type="material-community" name={iconName} size={22} color={color} />
+  );
 }
-
-export default Navigation
-
-const styles = StyleSheet.create({})
