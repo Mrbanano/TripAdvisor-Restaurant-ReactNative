@@ -7,7 +7,7 @@ const UserGuest = () => {
     <ScrollView centerContent={true} style={styles.viewbody}>
       <Image
         style={styles.image}
-        source={require("../../../assets/img/original.jpg")}
+        source={require("../../../assets/img/original.png")}
         resizeMode="contain"
       />
       <Text style={styles.title}>Consulta tu pefil de 5 tenedores</Text>
