@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   Overlay: {
     height: 100,
     width: 200,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#fff",
     borderColor: "#00a680",
     borderWidth: 2,
     borderRadius: 10,
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#00a680",
-    textTransform:"uppercase",
-    marginTop:"10"
+    textTransform: "uppercase",
+    marginTop: 10,
   },
 });
