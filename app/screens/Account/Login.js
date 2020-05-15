@@ -1,15 +1,19 @@
 import React from "react";
 import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
 import { Divider } from "react-native-elements";
+import { useNavigation } from "@react-navigation/native";
 
 const CreateAccount = () => {
+   const navigation = useNavigation();
   return (
     <Text style={styles.txtRegister}>
       ¿Aun no tienes una cuenta?{" "}
-      <Text 
-      style={styles.btnRegister}
-      onPress={()=> console.log('registro')}
-      >Registrate</Text>
+      <Text
+        style={styles.btnRegister}
+        onPress={() => navigation.navigate("Register")}
+      >
+        Registrate
+      </Text>
     </Text>
   );
 };
