@@ -10,7 +10,7 @@ const Account = () => {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
-      //!user ? setLogin(false) : setLogin(true);
+      !user ? setLogin(false) : setLogin(true);
     });
   }, []);
 
