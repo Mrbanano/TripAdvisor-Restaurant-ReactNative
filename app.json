@@ -23,6 +23,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "this a my first app",
+    "githubUrl": "https://github.com/Mrbanano/TripAdvisor-Restaurant-ReactNative/"
   }
 }
