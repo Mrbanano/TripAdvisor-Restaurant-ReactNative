@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Input, Icon, Button } from "react-native-elements";
+import {size, isEmpty} from 'lodash'
+import {validateEmail} from '../../utils/validations'
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -8,7 +10,15 @@ const RegisterForm = () => {
   const [formData, setFormData] = useState(defaultFormValue())
   
   const onSubmit = ()=>{
-    console.log(formData)
+    if(isEmpty(formData.email) || isEmpty(formData.password) || isEmpty(formData.repeatPassword)){
+      console.log('todos los campos son obligatorios')
+    }else{
+      if(validateEmail(formData.email)){
+        console.log('el email no es valido')
+      }else{
+        
+      }
+    }
   }
 
   const onChange = (e,type)=>{
