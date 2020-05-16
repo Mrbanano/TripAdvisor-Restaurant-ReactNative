@@ -1,30 +1,45 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Input, Icon, Button } from "react-native-elements";
-import {size, isEmpty} from 'lodash'
-import {validateEmail} from '../../utils/validations'
+import { size, isEmpty } from "lodash";
+import { validateEmail } from "../../utils/validations";
+import * as firebase from 'firebase'
 
-const RegisterForm = () => {
+
+const RegisterForm = (props) => {
+  const { toastRef } = props;
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
-  const [formData, setFormData] = useState(defaultFormValue())
-  
-  const onSubmit = ()=>{
-    if(isEmpty(formData.email) || isEmpty(formData.password) || isEmpty(formData.repeatPassword)){
-      console.log('todos los campos son obligatorios')
-    }else{
-      if(validateEmail(formData.email)){
-        console.log('el email no es valido')
-      }else{
-        
-      }
-    }
-  }
+  const [formData, setFormData] = useState(defaultFormValue());
 
-  const onChange = (e,type)=>{
-    setFormData({...formData, [type]:e.nativeEvent.text})
-  }
-  
+  const onSubmit = () => {
+    if (
+      isEmpty(formData.email) ||
+      isEmpty(formData.password) ||
+      isEmpty(formData.repeatPassword)
+    ) {
+      toastRef.current.show("todos los campos son obligatorios")
+    } else if (!validateEmail(formData.email)) {
+      toastRef.current.show("Email no valido")
+    } else if (formData.password !== formData.repeatPassword) {
+      toastRef.current.show("La contraseña no coinciden");
+    } else if (size(formData.password) < 6) {
+      toastRef.current.show("la contraseña debe tener mas de 6 caracteres");
+    } else {
+       firebase.auth().createUserWithEmailAndPassword(formData.email,formData.password)
+       .then(response => {
+         console.log(response)
+       })
+       .catch(err => {
+        toastRef.current.show("Error al Regitrate, ntentalo de nuevo")
+       })
+    }
+  };
+
+  const onChange = (e, type) => {
+    setFormData({ ...formData, [type]: e.nativeEvent.text });
+  };
+
   return (
     <View style={styles.formContainer}>
       <Input
@@ -85,12 +100,12 @@ const RegisterForm = () => {
 
 export default RegisterForm;
 
-function defaultFormValue(){
-  return{
+function defaultFormValue() {
+  return {
     email: "",
     password: "",
-    repeatPassword:""
-  }
+    repeatPassword: "",
+  };
 }
 
 const styles = StyleSheet.create({
@@ -109,12 +124,13 @@ const styles = StyleSheet.create({
     width: "95%",
   },
   btnRegiter: {
-    backgroundColor: "#00a680",
+    marginTop:20,
+    backgroundColor: "#690589",
   },
   icon: {
     color: "#c1c1c1",
   },
   iconActive: {
-    color: "#00a680",
+    color: "#690589",
   },
 });

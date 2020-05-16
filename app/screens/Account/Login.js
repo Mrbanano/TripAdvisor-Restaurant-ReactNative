@@ -53,11 +53,11 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   btnRegister: {
-    color: "#00a680",
+    color: "#690589",
     fontWeight: "bold",
   },
-  divider:{
-    backgroundColor:"#00a680",
-    margin:40
-  }
+  divider: {
+    backgroundColor: "#690589",
+    margin: 40,
+  },
 });

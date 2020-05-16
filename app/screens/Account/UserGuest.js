@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     marginRight: 30,
   },
   image: {
-    height: 300,
+    height: 280,
     width: "100%",
     marginBottom: 40,
   },
@@ -52,14 +52,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 20,
   },
-  viewBtn:{
-    flex:1,
-    alignItems:"center"
+  viewBtn: {
+    flex: 1,
+    alignItems: "center",
   },
   BtnStyle: {
-    backgroundColor: "#00a680",
+    backgroundColor: "#690589",
   },
-  BtnContainer:{
-    width:"80%"
+  BtnContainer: {
+    width: "80%",
+   
   },
 });
