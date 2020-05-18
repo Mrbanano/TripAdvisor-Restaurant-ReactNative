@@ -24,7 +24,7 @@
     "ios": {
       "supportsTablet": true
     },
-    "description": "this a my first app",
+    "description": "See nearby restaurants",
     "githubUrl": "https://github.com/Mrbanano/TripAdvisor-Restaurant-ReactNative/"
   }
 }

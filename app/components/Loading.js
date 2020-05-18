@@ -12,7 +12,7 @@ const Loading = (props) => {
       overlayStyle={styles.Overlay}
     >
       <View style={styles.view}>
-        <ActivityIndicator size="large" color="#00a680" />
+        <ActivityIndicator size="large" color="#690589" />
         {text && <Text style={styles.text}>{text}</Text>}
       </View>
     </Overlay>
