@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Avatar } from "react-native-elements";
-
 const InfoUser = (props) => {
   const { userInfo } = props;
-  console.log(userInfo);
+  const { photoURL, displayName, email } = userInfo;
+  const Randon = getRandomInt(0,99999);
   return (
     <View style={styles.viewuserInfo}>
       <Avatar
@@ -12,16 +12,27 @@ const InfoUser = (props) => {
         size="large"
         showEditButton
         containerStyle={styles.userInfoAvatar}
+        source={
+          photoURL
+            ? { uri: photoURL }
+            : require("../../../assets/img/AvatarDefault.jpg")
+        }
       />
       <View>
-        <Text style={styles.displayName}>Alvaro Castillo</Text>
-        <Text>6666alvaro666@gmail.com</Text>
+        <Text style={styles.displayName}>
+          {displayName ? displayName : `User-guest-${Randon}`}
+        </Text>
+        <Text>{email ? email : "Usuario Facebook"}</Text>
       </View>
     </View>
   );
 };
 
 export default InfoUser;
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
 const styles = StyleSheet.create({
   viewuserInfo: {
@@ -35,8 +46,8 @@ const styles = StyleSheet.create({
   userInfoAvatar: {
     marginRight: 20,
   },
-  displayName:{
-    fontWeight:"bold",
-    paddingBottom: 5
-  }
+  displayName: {
+    fontWeight: "bold",
+    paddingBottom: 5,
+  },
 });
