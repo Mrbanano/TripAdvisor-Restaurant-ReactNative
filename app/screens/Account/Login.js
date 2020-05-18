@@ -1,9 +1,9 @@
-import React from "react";
+import React,{useRef}from "react";
 import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
 import { Divider } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import LoginFrom from '../../components/Account/LoginFrom'
-
+import Toast from 'react-native-easy-toast'
 const CreateAccount = () => {
    const navigation = useNavigation();
   return (
@@ -20,6 +20,9 @@ const CreateAccount = () => {
 };
 
 const Login = () => {
+
+  const toastRef = useRef();
+
   return (
     <ScrollView>
       <Image
@@ -28,11 +31,12 @@ const Login = () => {
         style={styles.logo}
       />
       <View style={styles.view}>
-        <LoginFrom></LoginFrom>
+        <LoginFrom toastRef={toastRef} />
         <CreateAccount></CreateAccount>
       </View>
-      <Divider style={styles.divider}/>
+      <Divider style={styles.divider} />
       <Text>Social media</Text>
+      <Toast ref={toastRef} position="center" opacity={0.9} />
     </ScrollView>
   );
 };
