@@ -9,9 +9,14 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
+<<<<<<< HEAD
 
 app/utils/firebase.js
 app/utils/social.js
 
+=======
+app/utils/firebase.js
+app/utils/social.js
+>>>>>>> develop
 # macOS
 .DS_Store
