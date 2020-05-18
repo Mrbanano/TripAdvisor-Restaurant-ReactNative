@@ -23,7 +23,6 @@ const UserLogin = () => {
 
   }, [])
 
-
   return (
     <View style={styles.viewUserInfo}>
       

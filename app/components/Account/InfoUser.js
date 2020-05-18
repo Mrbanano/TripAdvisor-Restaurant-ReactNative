@@ -1,48 +1,64 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Avatar } from "react-native-elements";
-import * as firebase from 'firebase'
-import * as Permissions from 'expo-permissions'
-import * as ImagePicker from 'expo-image-picker'
-
+import * as firebase from "firebase";
+import * as Permissions from "expo-permissions";
+import * as ImagePicker from "expo-image-picker";
 
 const InfoUser = (props) => {
-
   const { userInfo, toastRef } = props;
-  const { photoURL, displayName, email ,uid} = userInfo;
-  const Randon = getRandomInt(0,99999);
+  const { photoURL, displayName, email, uid } = userInfo;
+  const Randon = getRandomInt(0, 99999);
 
-  const changeAvartar = async() =>{
-    const resultPermissions = await Permissions.askAsync(Permissions.CAMERA_ROLL)
-    const resultPermissionsCamera= resultPermissions.permissions.cameraRoll.status
-    if(resultPermissionsCamera === "denied"){
-      toastRef.current.show('Es necesario aceptar los permisos')
-    }else{
+  const changeAvartar = async () => {
+    const resultPermissions = await Permissions.askAsync(
+      Permissions.CAMERA_ROLL
+    );
+    const resultPermissionsCamera =
+      resultPermissions.permissions.cameraRoll.status;
+    if (resultPermissionsCamera === "denied") {
+      toastRef.current.show("Es necesario aceptar los permisos");
+    } else {
       const result = await ImagePicker.launchImageLibraryAsync({
-        allowsEditing:true,
-        aspect:[4,3]
-      })
+        allowsEditing: true,
+        aspect: [4, 3],
+      });
 
-      if(result.cancelled){
-         toastRef.current.show("Se a cancelado el cambio de Avatar");
-      }else{
-        UploadFirebaseImg(result.uri).then(()=>{
-          toastRef.current.show("Foto actualizada ");
-        }).catch(()=>{
-           toastRef.current.show("Algo salio mal");
-        })
+      if (result.cancelled) {
+        toastRef.current.show("Se a cancelado el cambio de Avatar");
+      } else {
+        UploadFirebaseImg(result.uri)
+          .then(() => {
+            updatePhotoUrl();
+            toastRef.current.show("Foto actualizada ");
+          })
+          .catch(() => {
+            toastRef.current.show("Algo salio mal");
+          });
       }
-      
     }
-  }
+  };
 
-  const UploadFirebaseImg= async(uri) =>{
-    const response = await fetch(uri)
-    const blob = await response.blob()
+  const UploadFirebaseImg = async (uri) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();
 
     const ref = firebase.storage().ref().child(`Avatar/${uid}`);
-    return ref.put(blob)
-  }
+    return ref.put(blob);
+  };
+
+  const updatePhotoUrl = () => {
+    firebase
+      .storage()
+      .ref(`Avatar/${uid}`)
+      .getDownloadURL()
+      .then(async(Response) => {
+        const update ={
+          photoURL: Response
+        }
+        await firebase.auth().currentUser.updateProfile(update)
+      });
+  };
 
   return (
     <View style={styles.viewuserInfo}>
