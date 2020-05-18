@@ -27,7 +27,7 @@ const UserLogin = () => {
   return (
     <View style={styles.viewUserInfo}>
       
-      {userInfo && <InfoUser userInfo={userInfo} />}
+      {userInfo && <InfoUser userInfo={userInfo} toastRef={toastRef}/>}
       <AccountOptions />
       <Button
         title="Cerrar sesión"
