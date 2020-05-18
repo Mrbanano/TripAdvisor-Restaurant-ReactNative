@@ -6,8 +6,13 @@ import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 
 const InfoUser = (props) => {
-  const { userInfo, toastRef } = props;
-  const { photoURL, displayName, email, uid } = userInfo;
+  const { userInfo, toastRef, settextLoading, setloading } = props;
+  const {
+    photoURL,
+    displayName,
+    email,
+    uid,
+  } = userInfo;
   const Randon = getRandomInt(0, 99999);
 
   const changeAvartar = async () => {
@@ -33,13 +38,17 @@ const InfoUser = (props) => {
             toastRef.current.show("Foto actualizada ");
           })
           .catch(() => {
-            toastRef.current.show("Algo salio mal");
+            toastRef.current.show("No se pudo actualiza la foto");
           });
       }
     }
   };
 
   const UploadFirebaseImg = async (uri) => {
+
+    settextLoading('Subiendo imagen')
+    setloading(true)
+
     const response = await fetch(uri);
     const blob = await response.blob();
 
@@ -52,11 +61,15 @@ const InfoUser = (props) => {
       .storage()
       .ref(`Avatar/${uid}`)
       .getDownloadURL()
-      .then(async(Response) => {
-        const update ={
-          photoURL: Response
-        }
-        await firebase.auth().currentUser.updateProfile(update)
+      .then(async (Response) => {
+        const update = {
+          photoURL: Response,
+        };
+        await firebase.auth().currentUser.updateProfile(update);
+        setloading(false);
+      })
+      .catch(() => {
+        toastRef.current.show("No se pudo cargar la foto");
       });
   };
 

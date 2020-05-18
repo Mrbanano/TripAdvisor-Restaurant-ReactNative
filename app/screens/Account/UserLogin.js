@@ -1,32 +1,35 @@
-import React,{useRef, useEffect, useState}from 'react'
-import { StyleSheet, Text, View} from 'react-native'
-import {Button} from 'react-native-elements'
-import Toast from 'react-native-easy-toast'
-import Loading from '../../components/Loading'
-import * as firebase from 'firebase'
+import React, { useRef, useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { Button } from "react-native-elements";
+import Toast from "react-native-easy-toast";
+import Loading from "../../components/Loading";
+import * as firebase from "firebase";
 
-import InfoUser from '../../components/Account/InfoUser'
-import AccountOptions from '../../components/Account/AccountOptions'
+import InfoUser from "../../components/Account/InfoUser";
+import AccountOptions from "../../components/Account/AccountOptions";
 
 const UserLogin = () => {
-
-  const toastRef = useRef()
-  const [loading, setloading] = useState(false)
-  const [textLoading, settextLoading] = useState("Cargando")
-  const [userInfo, setuserInfo] = useState(null)
+  const toastRef = useRef();
+  const [loading, setloading] = useState(false);
+  const [textLoading, settextLoading] = useState("Cargando");
+  const [userInfo, setuserInfo] = useState(null);
   useEffect(() => {
-    
-    (async()=>{
+    (async () => {
       const user = await firebase.auth().currentUser;
-      setuserInfo(user)
-    })()
-
-  }, [])
+      setuserInfo(user);
+    })();
+  }, []);
 
   return (
     <View style={styles.viewUserInfo}>
-      
-      {userInfo && <InfoUser userInfo={userInfo} toastRef={toastRef}/>}
+      {userInfo && (
+        <InfoUser
+          userInfo={userInfo}
+          toastRef={toastRef}
+          setloading={setloading}
+          settextLoading={settextLoading}
+        />
+      )}
       <AccountOptions />
       <Button
         title="Cerrar sesión"
@@ -40,10 +43,9 @@ const UserLogin = () => {
       <Loading isVisible={loading} text={textLoading} />
     </View>
   );
-}
- 
-export default UserLogin
+};
 
+export default UserLogin;
 
 const styles = StyleSheet.create({
   viewUserInfo: {
