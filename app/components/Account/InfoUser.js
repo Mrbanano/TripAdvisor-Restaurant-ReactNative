@@ -9,7 +9,7 @@ import * as ImagePicker from 'expo-image-picker'
 const InfoUser = (props) => {
 
   const { userInfo, toastRef } = props;
-  const { photoURL, displayName, email } = userInfo;
+  const { photoURL, displayName, email ,uid} = userInfo;
   const Randon = getRandomInt(0,99999);
 
   const changeAvartar = async() =>{
@@ -23,8 +23,25 @@ const InfoUser = (props) => {
         aspect:[4,3]
       })
 
-      console.log(result)
+      if(result.cancelled){
+         toastRef.current.show("Se a cancelado el cambio de Avatar");
+      }else{
+        UploadFirebaseImg(result.uri).then(()=>{
+          toastRef.current.show("Foto actualizada ");
+        }).catch(()=>{
+           toastRef.current.show("Algo salio mal");
+        })
+      }
+      
     }
+  }
+
+  const UploadFirebaseImg= async(uri) =>{
+    const response = await fetch(uri)
+    const blob = await response.blob()
+
+    const ref = firebase.storage().ref().child(`Avatar/${uid}`);
+    return ref.put(blob)
   }
 
   return (
