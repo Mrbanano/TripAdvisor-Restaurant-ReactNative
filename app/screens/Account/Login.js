@@ -37,7 +37,7 @@ const Login = () => {
       </View>
       <Divider style={styles.divider} />
       <View style={styles.views}>
-        <LoginFacebook />
+        <LoginFacebook toastRef={toastRef} />
       </View>
       <Toast ref={toastRef} position="center" opacity={0.9} />
     </ScrollView>

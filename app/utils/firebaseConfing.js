@@ -11,3 +11,5 @@ var firebaseConfig = {
 };
 
 export const firebaseApp = firebase.initializeApp(firebaseConfig);
+
+//change name to firebase
