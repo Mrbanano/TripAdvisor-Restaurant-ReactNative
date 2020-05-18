@@ -1,11 +1,13 @@
-import React,{useRef}from "react";
+import React, { useRef } from "react";
 import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
 import { Divider } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
-import LoginFrom from '../../components/Account/LoginFrom'
-import Toast from 'react-native-easy-toast'
+import LoginFrom from "../../components/Account/LoginFrom";
+import Toast from "react-native-easy-toast";
+import LoginFacebook from "../../components/Account/LoginFacebook";
+
 const CreateAccount = () => {
-   const navigation = useNavigation();
+  const navigation = useNavigation();
   return (
     <Text style={styles.txtRegister}>
       ¿Aun no tienes una cuenta?{" "}
@@ -20,7 +22,6 @@ const CreateAccount = () => {
 };
 
 const Login = () => {
-
   const toastRef = useRef();
 
   return (
@@ -35,7 +36,9 @@ const Login = () => {
         <CreateAccount></CreateAccount>
       </View>
       <Divider style={styles.divider} />
-      <Text>Social media</Text>
+      <View style={styles.views}>
+        <LoginFacebook />
+      </View>
       <Toast ref={toastRef} position="center" opacity={0.9} />
     </ScrollView>
   );
@@ -52,6 +55,11 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     marginRight: 40,
   },
+  views: {
+    marginLeft: 40,
+    marginRight: 40,
+    marginTop: 0,
+  },
   txtRegister: {
     marginTop: 15,
     marginLeft: 10,
@@ -63,6 +71,7 @@ const styles = StyleSheet.create({
   },
   divider: {
     backgroundColor: "#690589",
-    margin: 40,
+    margin: 30,
+    marginBottom:20
   },
 });
