@@ -24,8 +24,12 @@
     "ios": {
       "supportsTablet": true
     },
-    "android":{
-      "permissions":["CAMERA_ROLL","READ_EXTERNAL_STORAGE","WRITE_EXTERNAL_STORAGE"]
+    "android": {
+      "permissions": [
+        "CAMERA_ROLL",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "description": "See nearby restaurants",
     "githubUrl": "https://github.com/Mrbanano/TripAdvisor-Restaurant-ReactNative/"

@@ -30,7 +30,12 @@ const UserLogin = () => {
           settextLoading={settextLoading}
         />
       )}
-      <AccountOptions />
+      <AccountOptions
+        userInfo={userInfo}
+        toastRef={toastRef}
+        setloading={setloading}
+        settextLoading={settextLoading}
+      />
       <Button
         title="Cerrar sesión"
         buttonStyle={styles.closeSession}
