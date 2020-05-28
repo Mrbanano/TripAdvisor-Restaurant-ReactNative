@@ -6,12 +6,32 @@ import Modal from "../../components/Modal";
 
 const AccountOptions = (props) => {
   const { userInfo, toastRef, setloading, settextLoading } = props;
+  const [isVisible, setisVisible] = useState(false);
+  const [renderComponet, setrenderComponet] = useState(null);
+
   const selectComponent = (key) => {
-    console.log(key);
+    switch (key) {
+      case "displayName":
+        setrenderComponet(<Text>Cambiando nombre y apellido</Text>);
+        setisVisible(true);
+        break;
+
+      case "email":
+        setrenderComponet(<Text>Cambiando email</Text>);
+        setisVisible(true);
+        break;
+
+      case "password":
+        setrenderComponet(<Text>Cambiando constraseña</Text>);
+        setisVisible(true);
+        break;
+
+      default:
+        setrenderComponet(false);
+        break;
+    }
   };
   const menuOptions = generateOptions(selectComponent);
-  const [isVisible, setisVisible] = useState(true);
-
   return (
     <View>
       {map(menuOptions, (menu, index) => (
@@ -32,9 +52,11 @@ const AccountOptions = (props) => {
           onPress={menu.onPress}
         />
       ))}
-      <Modal isVisible={isVisible} setisVisible={setisVisible}>
-        <Text>Hola mugrosos</Text>
-      </Modal>
+      {renderComponet && (
+        <Modal isVisible={isVisible} setisVisible={setisVisible}>
+          {renderComponet}
+        </Modal>
+      )}
     </View>
   );
 };
