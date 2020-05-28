@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { ListItem } from "react-native-elements";
 import { map } from "lodash";
@@ -9,8 +9,8 @@ const AccountOptions = (props) => {
   const selectComponent = (key) => {
     console.log(key);
   };
-
   const menuOptions = generateOptions(selectComponent);
+  const [isVisible, setisVisible] = useState(true);
 
   return (
     <View>
@@ -32,8 +32,8 @@ const AccountOptions = (props) => {
           onPress={menu.onPress}
         />
       ))}
-      <Modal isVisible={true}>
-          <Text>Hola</Text>
+      <Modal isVisible={isVisible} setisVisible={setisVisible}>
+        <Text>Hola mugrosos</Text>
       </Modal>
     </View>
   );
