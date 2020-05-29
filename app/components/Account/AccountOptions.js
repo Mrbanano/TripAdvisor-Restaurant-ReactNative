@@ -3,26 +3,35 @@ import { StyleSheet, View, Text } from "react-native";
 import { ListItem } from "react-native-elements";
 import { map } from "lodash";
 import Modal from "../../components/Modal";
+import DisplayName from './ChangeDisplayNameForm'
+import Email from './ChangeEmail'
+import Password from './ChangePassword'
 
 const AccountOptions = (props) => {
   const { userInfo, toastRef, setloading, settextLoading } = props;
   const [isVisible, setisVisible] = useState(false);
   const [renderComponet, setrenderComponet] = useState(null);
 
+  console.log(userInfo)
+
   const selectComponent = (key) => {
     switch (key) {
       case "displayName":
-        setrenderComponet(<Text>Cambiando nombre y apellido</Text>);
+        setrenderComponet(<DisplayName
+          displayName={userInfo.displayName}
+          setisVisible={setisVisible}
+          toastRef={toastRef}
+        />);
         setisVisible(true);
         break;
 
       case "email":
-        setrenderComponet(<Text>Cambiando email</Text>);
+        setrenderComponet(<Email/>);
         setisVisible(true);
         break;
 
       case "password":
-        setrenderComponet(<Text>Cambiando constraseña</Text>);
+        setrenderComponet(<Password/>);
         setisVisible(true);
         break;
 
