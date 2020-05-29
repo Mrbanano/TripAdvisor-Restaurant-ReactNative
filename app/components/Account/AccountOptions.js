@@ -12,8 +12,6 @@ const AccountOptions = (props) => {
   const [isVisible, setisVisible] = useState(false);
   const [renderComponet, setrenderComponet] = useState(null);
 
-  console.log(userInfo)
-
   const selectComponent = (key) => {
     switch (key) {
       case "displayName":

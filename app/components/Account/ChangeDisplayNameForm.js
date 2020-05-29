@@ -1,11 +1,15 @@
-import React from "react";
+import React,{useState} from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Input, Button } from "react-native-elements";
 
 const ChangeDisplayNameForm = (props) => {
 
   const { displayName, setisVisible, toastRef } = props;
+  const [newDisplayName, setnewDisplayName] = useState("")
 
+  const onSubmint = () =>{
+    console.log(newDisplayName)
+  }
 
   return (
     <View style={styles.view}>
@@ -23,6 +27,7 @@ const ChangeDisplayNameForm = (props) => {
         title="Cambiar nombre"
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
+        onPress={onSubmint}
       />
     </View>
   );
