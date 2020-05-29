@@ -1,10 +1,78 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Avatar } from "react-native-elements";
+import * as firebase from "firebase";
+import * as Permissions from "expo-permissions";
+import * as ImagePicker from "expo-image-picker";
+
 const InfoUser = (props) => {
-  const { userInfo } = props;
-  const { photoURL, displayName, email } = userInfo;
-  const Randon = getRandomInt(0,99999);
+  const { userInfo, toastRef, settextLoading, setloading } = props;
+  const {
+    photoURL,
+    displayName,
+    email,
+    uid,
+  } = userInfo;
+  const Randon = getRandomInt(0, 99999);
+
+  const changeAvartar = async () => {
+    const resultPermissions = await Permissions.askAsync(
+      Permissions.CAMERA_ROLL
+    );
+    const resultPermissionsCamera =
+      resultPermissions.permissions.cameraRoll.status;
+    if (resultPermissionsCamera === "denied") {
+      toastRef.current.show("Es necesario aceptar los permisos");
+    } else {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true,
+        aspect: [4, 3],
+      });
+
+      if (result.cancelled) {
+        toastRef.current.show("Se a cancelado el cambio de Avatar");
+      } else {
+        UploadFirebaseImg(result.uri)
+          .then(() => {
+            updatePhotoUrl();
+            toastRef.current.show("Foto actualizada ");
+          })
+          .catch(() => {
+            toastRef.current.show("No se pudo actualiza la foto");
+          });
+      }
+    }
+  };
+
+  const UploadFirebaseImg = async (uri) => {
+
+    settextLoading('Subiendo imagen')
+    setloading(true)
+
+    const response = await fetch(uri);
+    const blob = await response.blob();
+
+    const ref = firebase.storage().ref().child(`Avatar/${uid}`);
+    return ref.put(blob);
+  };
+
+  const updatePhotoUrl = () => {
+    firebase
+      .storage()
+      .ref(`Avatar/${uid}`)
+      .getDownloadURL()
+      .then(async (Response) => {
+        const update = {
+          photoURL: Response,
+        };
+        await firebase.auth().currentUser.updateProfile(update);
+        setloading(false);
+      })
+      .catch(() => {
+        toastRef.current.show("No se pudo cargar la foto");
+      });
+  };
+
   return (
     <View style={styles.viewuserInfo}>
       <Avatar
@@ -12,6 +80,7 @@ const InfoUser = (props) => {
         size="large"
         showEditButton
         containerStyle={styles.userInfoAvatar}
+        onEditPress={changeAvartar}
         source={
           photoURL
             ? { uri: photoURL }
