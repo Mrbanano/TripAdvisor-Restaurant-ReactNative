@@ -5,9 +5,9 @@ import { Input, Button } from "react-native-elements";
 const ChangeDisplayNameForm = (props) => {
 
   const { displayName, setisVisible, toastRef } = props;
-  const [newDisplayName, setnewDisplayName] = useState("")
+  const [newDisplayName, setnewDisplayName] = useState(null)
 
-  const onSubmint = () =>{
+  const onSubmit = () => {
     console.log(newDisplayName)
   }
 
@@ -22,12 +22,14 @@ const ChangeDisplayNameForm = (props) => {
           color:"#c2c2c2"
         }}
         defaultValue={displayName || "" }
+        onChange={(e)=>{setnewDisplayName(e.nativeEvent.text)}}
+        
       />
       <Button
         title="Cambiar nombre"
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
-        onPress={onSubmint}
+        onPress={onSubmit}
       />
     </View>
   );
