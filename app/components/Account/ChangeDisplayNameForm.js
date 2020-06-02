@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Input, Button } from "react-native-elements";
+import * as firebase from 'firebase'
 
 const ChangeDisplayNameForm = (props) => {
 
@@ -15,7 +16,16 @@ const ChangeDisplayNameForm = (props) => {
     }else if (displayName === newDisplayName){
       setError('El nuevo nombre no pude ser igual al actual')
     }else{
-      console.log(newDisplayName)
+      const update = {
+        displayName: newDisplayName
+      }
+      firebase.auth().currentUser.updateProfile(update)
+       .then(()=>{
+         console.log('ok')
+       })
+       .catch(()=>{
+         setError('Error al actualizar el nombre')
+       })
     }
   }
 
