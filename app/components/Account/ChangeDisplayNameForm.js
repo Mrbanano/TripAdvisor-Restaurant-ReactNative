@@ -6,9 +6,17 @@ const ChangeDisplayNameForm = (props) => {
 
   const { displayName, setisVisible, toastRef } = props;
   const [newDisplayName, setnewDisplayName] = useState(null)
+  const [error, setError] = useState(null)
 
   const onSubmit = () => {
-    console.log(newDisplayName)
+    setError(null)
+    if(!newDisplayName){
+      setError('El nombre no puede estar vacio'); 
+    }else if (displayName === newDisplayName){
+      setError('El nuevo nombre no pude ser igual al actual')
+    }else{
+      console.log(newDisplayName)
+    }
   }
 
   return (
@@ -23,7 +31,7 @@ const ChangeDisplayNameForm = (props) => {
         }}
         defaultValue={displayName || "" }
         onChange={(e)=>{setnewDisplayName(e.nativeEvent.text)}}
-        
+        errorMessage={error}
       />
       <Button
         title="Cambiar nombre"
