@@ -8,18 +8,27 @@ import Email from './ChangeEmail'
 import Password from './ChangePassword'
 
 const AccountOptions = (props) => {
-  const { userInfo, toastRef, setloading, settextLoading } = props;
+  const {
+    userInfo,
+    toastRef,
+    setloading,
+    settextLoading,
+    setrealoandUserInfo,
+  } = props;
   const [isVisible, setisVisible] = useState(false);
   const [renderComponet, setrenderComponet] = useState(null);
 
   const selectComponent = (key) => {
     switch (key) {
       case "displayName":
-        setrenderComponet(<DisplayName
-          displayName={userInfo.displayName}
-          setisVisible={setisVisible}
-          toastRef={toastRef}
-        />);
+        setrenderComponet(
+          <DisplayName
+            displayName={userInfo.displayName}
+            setisVisible={setisVisible}
+            toastRef={toastRef}
+            setrealoandUserInfo={setrealoandUserInfo}
+          />
+        );
         setisVisible(true);
         break;
 

@@ -5,9 +5,10 @@ import * as firebase from 'firebase'
 
 const ChangeDisplayNameForm = (props) => {
 
-  const { displayName, setisVisible, toastRef } = props;
+  const { displayName, setisVisible, toastRef, setrealoandUserInfo } = props;
   const [newDisplayName, setnewDisplayName] = useState(null)
   const [error, setError] = useState(null)
+  const [InLoading, setInLoading] = useState(false)
 
   const onSubmit = () => {
     setError(null)
@@ -16,15 +17,19 @@ const ChangeDisplayNameForm = (props) => {
     }else if (displayName === newDisplayName){
       setError('El nuevo nombre no pude ser igual al actual')
     }else{
+      setInLoading(true)
       const update = {
         displayName: newDisplayName
       }
       firebase.auth().currentUser.updateProfile(update)
        .then(()=>{
-         console.log('ok')
+         setInLoading(false);
+         setrealoandUserInfo(true);
+         setisVisible(false);
        })
        .catch(()=>{
          setError('Error al actualizar el nombre')
+         setInLoading(false);
        })
     }
   }
@@ -48,6 +53,7 @@ const ChangeDisplayNameForm = (props) => {
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
         onPress={onSubmit}
+        loading={InLoading}
       />
     </View>
   );

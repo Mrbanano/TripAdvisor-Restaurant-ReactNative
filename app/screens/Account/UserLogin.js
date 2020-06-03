@@ -13,12 +13,15 @@ const UserLogin = () => {
   const [loading, setloading] = useState(false);
   const [textLoading, settextLoading] = useState("Cargando");
   const [userInfo, setuserInfo] = useState(null);
+  const [realoandUserInfo, setrealoandUserInfo] = useState(false)
+
   useEffect(() => {
     (async () => {
       const user = await firebase.auth().currentUser;
       setuserInfo(user);
     })();
-  }, []);
+    setuserInfo(false)
+  }, [realoandUserInfo]);
 
   return (
     <View style={styles.viewUserInfo}>
@@ -35,6 +38,7 @@ const UserLogin = () => {
         toastRef={toastRef}
         setloading={setloading}
         settextLoading={settextLoading}
+        setrealoandUserInfo={setrealoandUserInfo}
       />
       <Button
         title="Cerrar sesión"
