@@ -23,8 +23,8 @@ const ChangeDisplayNameForm = (props) => {
       }
       firebase.auth().currentUser.updateProfile(update)
        .then(()=>{
-         setInLoading(false);
          setrealoandUserInfo(true);
+         setInLoading(false);
          setisVisible(false);
        })
        .catch(()=>{

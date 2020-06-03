@@ -20,7 +20,7 @@ const UserLogin = () => {
       const user = await firebase.auth().currentUser;
       setuserInfo(user);
     })();
-    setuserInfo(false)
+    setrealoandUserInfo(false);
   }, [realoandUserInfo]);
 
   return (
